@@ -31,8 +31,8 @@ fi
 
 IPA="${UNITY_PLAYER_PATH:-}"
 if [ -z "$IPA" ] || [ ! -f "$IPA" ]; then
-  # fallback: look for an .ipa next to the build output
-  IPA=$(find "${UNITY_PLAYER_PATH:-.}" .. -maxdepth 3 -name "*.ipa" 2>/dev/null | head -1)
+  # fallback: Build Automation passes the output folder as the 2nd argument
+  IPA=$(find "${2:-.}" "${UNITY_PLAYER_PATH:-.}" -maxdepth 3 -name "*.ipa" 2>/dev/null | head -1)
 fi
 if [ -z "$IPA" ] || [ ! -f "$IPA" ]; then
   echo "ERROR: could not find the .ipa (UNITY_PLAYER_PATH='${UNITY_PLAYER_PATH:-}')"
