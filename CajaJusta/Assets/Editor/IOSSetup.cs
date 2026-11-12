@@ -30,7 +30,7 @@ public static class IOSSetup
         PlayerSettings.bundleVersion = Version;
         PlayerSettings.iOS.buildNumber = BuildNumber;
         PlayerSettings.iOS.targetOSVersionString = "15.0";
-        PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneAndiPad;
+        PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneOnly;   // iPhone only: no iPad screenshots needed (iPad can still run it in compatibility mode)
         PlayerSettings.iOS.requiresFullScreen = true;
         PlayerSettings.statusBarHidden = true;
         PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
