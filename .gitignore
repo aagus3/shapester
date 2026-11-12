@@ -33,3 +33,6 @@ CajaJusta/MemoryCaptures/
 .idea/
 .DS_Store
 Thumbs.db
+
+# --- public website (its own repo: shapester-site) ---
+site/
