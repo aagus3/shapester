@@ -8,14 +8,23 @@
 #   ASC_KEY_P8_BASE64    The AuthKey_XXXX.p8 file, base64-encoded (single line)
 # Build Automation provides UNITY_PLAYER_PATH = path to the built .ipa.
 
-set -u
-echo "== Shapester: uploading IPA to App Store Connect"
+echo "== Shapester: uploading IPA to App Store Connect (bash $BASH_VERSION)"
+
+# Read the credentials with printenv (works on the old bash 3.2 that macOS ships),
+# trimming stray spaces/newlines that can sneak in when pasting.
+ASC_KEY_ID=$(printenv ASC_KEY_ID | tr -d '[:space:]')
+ASC_ISSUER_ID=$(printenv ASC_ISSUER_ID | tr -d '[:space:]')
+ASC_KEY_P8_BASE64=$(printenv ASC_KEY_P8_BASE64 | tr -d '[:space:]')
 
 missing=0
-for v in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8_BASE64; do
-  if [ -z "${!v:-}" ]; then echo "ERROR: environment variable $v is not set"; missing=1; fi
-done
+[ -z "$ASC_KEY_ID" ]        && { echo "ERROR: environment variable ASC_KEY_ID is not set"; missing=1; }
+[ -z "$ASC_ISSUER_ID" ]     && { echo "ERROR: environment variable ASC_ISSUER_ID is not set"; missing=1; }
+[ -z "$ASC_KEY_P8_BASE64" ] && { echo "ERROR: environment variable ASC_KEY_P8_BASE64 is not set"; missing=1; }
+echo "Lengths: ASC_KEY_ID=${#ASC_KEY_ID} ASC_ISSUER_ID=${#ASC_ISSUER_ID} ASC_KEY_P8_BASE64=${#ASC_KEY_P8_BASE64}"
 if [ $missing -ne 0 ]; then
+  # Diagnostic: show only the NAMES (never the values) of variables that look related.
+  echo "Environment variable NAMES containing ASC/KEY/ISSUER/APPLE (values hidden):"
+  env | cut -d= -f1 | grep -iE "ASC|KEY|ISSUER|APPLE|CONNECT" | sort | sed 's/^/   /'
   echo "Skipping upload (credentials missing). The IPA is still available for download."
   exit 1
 fi
