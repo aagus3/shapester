@@ -1,0 +1,35 @@
+# --- secrets: NEVER commit (private key, certificates, profiles, API keys) ---
+certs/
+*.key
+*.p12
+*.cer
+*.mobileprovision
+*.p8
+
+# --- local tool settings ---
+.claude/
+
+# --- Unity generated folders ---
+CajaJusta/[Ll]ibrary/
+CajaJusta/[Tt]emp/
+CajaJusta/[Oo]bj/
+CajaJusta/[Ll]ogs/
+CajaJusta/[Bb]uild/
+CajaJusta/[Bb]uilds/
+CajaJusta/[Uu]ser[Ss]ettings/
+CajaJusta/MemoryCaptures/
+*.csproj
+*.sln
+*.suo
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
